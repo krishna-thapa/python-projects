@@ -89,3 +89,30 @@ record1.update("new word")  # update(value: str)
 record1.update(1)  # typing error.
 
 # Variadic Generics, a feature in Python 3.11
+from datetime import datetime
+from typing import Tuple, TypeVar, Generic, TypeVarTuple
+from uuid import UUID
+
+TKey_1 = TypeVar("TKey_1", int, UUID)
+TValues_1 = TypeVarTuple("TValues_1")
+
+
+class Record(Generic[TKey_1, *TValues_1]):
+    created: datetime
+    key: TKey_1
+    values: Tuple[*TValues_1]
+
+    def __init__(self, key: TKey_1, *values: *TValues_1):
+        self.key = key
+        self.values = values
+
+    def update(self, *values: *TValues_1):
+        self.values = values
+
+
+record1 = Record(1, "Hello", 12.3, 1234)  # Record[int, str, float, int]
+record1.update("new word", 123., 32343)
+record1.update("new word", "potato", 32343)  # type error
+
+a, b, c = record1.values  # a=str, b=float, c=int
+print(a, b, c)
