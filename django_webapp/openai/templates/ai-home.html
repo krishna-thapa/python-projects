@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Hello from AI</h1>
+
+{% if code %}
+<pre data-src="myfile.py" data-download-link>
+<code class='line-numbers language-{{lang|lower}}'>
+{{code}}
+
+</code>
+</pre>
+
+<br/><br/>
+
+<form method=POST action="{% url 'ai-home' %}">
+	{% csrf_token %}
+
+<div class="mb-3">
+  <textarea class="form-control" name="code"
+  placeholder="Have A.I. Fix My Code" rows="3">{{ code }}</textarea>
+</div>
+
+<select class="form-select" name="lang">
+  <option selected>Select Programming Language</option>
+  {% for lang in language_list %}
+
+  	<option value="{{ lang }}">{{ lang }}</option>
+
+  {% endfor %}
+</select>
+<br/><br/>
+
+  <button type="submit" class="btn btn-secondary">Submit</button>
+
+</form>
+<br/>
+
+
+{% else %}
+
+
+<pre data-src="myfile.py" data-download-link>
+<code class='line-numbers language-python'>
+    x = 1
+    if x == 1:
+        # indented four spaces
+        print("x is 1.")
+
+</code>
+</pre>
+
+<br/><br/>
+
+<form method=POST action="{% url 'ai-home' %}">
+	{% csrf_token %}
+
+<div class="mb-3">
+  <textarea class="form-control" name="code"
+  placeholder="Have A.I. Fix My Code" rows="3"></textarea>
+</div>
+
+<select class="form-select" name="lang">
+  <option selected>Select Programming Language</option>
+  {% for lang in language_list %}
+
+  	<option value="{{ lang }}">{{ lang }}</option>
+
+  {% endfor %}
+</select>
+<br/><br/>
+
+  <button type="submit" class="btn btn-secondary">Submit</button>
+
+</form>
+<br/>
+
+{% endif %}
+
+{% endblock %}

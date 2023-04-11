@@ -35,3 +35,6 @@ While it is possible to create it manually, it is a good practice to use the `pi
 
 - Install by `pip install pipreqs`
 - Running pipreqs in the command line generates a requirements.txt file automatically: `pipreqs /home/project/location`
+
+## Resources for the project:
+- [Youtube Video](https://www.youtube.com/watch?v=HGOBQPFzWKo)
